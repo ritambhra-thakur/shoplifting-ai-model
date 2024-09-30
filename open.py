@@ -1,13 +1,14 @@
 import base64
 import requests
 import datetime
+from decouple import config
 # Path to the image you want to send
 image_path = 'captured_frames/test.jpeg'
 
 # API endpoint and API key
 url = "https://detect.roboflow.com/shoplifting-detection-oxvwp/1"
 params = {
-    'api_key': '<api_key>'
+    'api_key': config('roboflow_api_key')
 }
 
 

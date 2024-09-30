@@ -3,6 +3,8 @@ from inference.core.interfaces.camera.entities import VideoFrame
 import cv2
 # import supervision to help visualize our predictions
 import supervision as sv
+from decouple import config
+
 
 annotator = sv.LabelAnnotator()
 
@@ -27,6 +29,7 @@ def predi(predictions: dict, video_frame: VideoFrame):
 # Use webcam by setting video_reference to 0
 pipeline = InferencePipeline.init(
     model_id="shoplifting-detection-oxvwp/1",
+    api_key = config('roboflow_api_key'),
     video_reference=0,  # This accesses the default webcam
     on_prediction=predi
 )
