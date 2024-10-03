@@ -10,8 +10,6 @@ annotator = sv.LabelAnnotator()
 
 
 def predi(predictions: dict, video_frame: VideoFrame):
-    print(predictions)
-    print("Yeahhhh!!!")
     labels = [p["class"] for p in predictions["predictions"]]
     # load our predictions into the Supervision Detections api
     detections = sv.Detections.from_inference(predictions)
@@ -23,14 +21,17 @@ def predi(predictions: dict, video_frame: VideoFrame):
     cv2.imshow("Predictions", image)
     cv2.waitKey(1)
 
+    if 'shoplifting' in labels:
+        print("ALERT! Theft in the store")
 
 
 
 # Use webcam by setting video_reference to 0
 pipeline = InferencePipeline.init(
+    # model_id="shoplifting-detection-erald/2",
     model_id="shoplifting-detection-oxvwp/1",
     api_key = config('roboflow_api_key'),
-    video_reference=0,  # This accesses the default webcam
+    video_reference='shoplifting.mp4',  # This accesses the default webcam
     on_prediction=predi
 )
 
