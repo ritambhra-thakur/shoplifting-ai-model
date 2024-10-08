@@ -75,6 +75,10 @@ for folder in video_folders:
 # Select video
 selected_video = st.selectbox("Select a video to analyze", videos)
 
+# Video player to play the selected video
+if selected_video:
+    st.video(selected_video)
+
 # Rerun the app if a new video is selected
 if 'previous_video' not in st.session_state:
     st.session_state['previous_video'] = selected_video
